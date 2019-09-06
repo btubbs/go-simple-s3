@@ -2,7 +2,6 @@ package s3
 
 import (
 	"bytes"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -16,8 +15,6 @@ import (
 func TestPutGetObject(t *testing.T) {
 	server := newFakeS3()
 	defer server.Close()
-
-	fmt.Println("SERVER URL", server.URL)
 
 	bucket, err := NewBucket("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY", "us-east-1", "testbucket", UseSSL(false), Endpoint(server.URL))
 	assert.Nil(t, err)
@@ -66,7 +63,6 @@ func (f *fakeS3) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			w.Header().Add("Content-Type", "text/plain")
 			w.Header().Add("Connection", "close")
 			w.Header().Add("Server", "AmazonS3")
-			fmt.Println("GETTT", string(bytes))
 			w.Write(bytes)
 		} else {
 			w.WriteHeader(http.StatusNotFound)
@@ -74,7 +70,6 @@ func (f *fakeS3) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	} else if r.Method == http.MethodPut {
 		bytes, err := ioutil.ReadAll(r.Body)
-		fmt.Println("PUUTTTTT", string(bytes))
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 		}
