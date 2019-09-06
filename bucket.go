@@ -49,7 +49,7 @@ func NewBucket(accessKeyID, secretAccessKey, region, bucketName string, optionFu
 
 	// configure S3 client
 	s3Config := &aws.Config{
-		Credentials: credentials.NewStaticCredentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY", ""),
+		Credentials: credentials.NewStaticCredentials(accessKeyID, secretAccessKey, ""),
 		Endpoint:    aws.String(options.Endpoint),
 		Region:      aws.String(region),
 		DisableSSL:  aws.Bool(!options.UseSSL),
