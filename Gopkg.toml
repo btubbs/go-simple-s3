@@ -31,10 +31,6 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/btubbs/envcfg"
-
-[[constraint]]
-  branch = "master"
   name = "github.com/johannesboyne/gofakes3"
 
 [[constraint]]
